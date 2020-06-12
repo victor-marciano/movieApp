@@ -5,7 +5,9 @@
       </template>
 
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-toolbar-title>MOVIE HUB</v-toolbar-title>         
+      <v-toolbar-title>
+        <v-img src="../assets/movieHubLogo.png"></v-img>
+      </v-toolbar-title>         
 
     <v-spacer></v-spacer>
         
