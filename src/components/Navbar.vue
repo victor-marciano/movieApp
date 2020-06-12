@@ -12,10 +12,13 @@
     <v-spacer></v-spacer>
         
       <v-text-field v-model="search" placeholder="Encontre um filme" full-width append-icon="mdi-magnify"></v-text-field>          
-      <v-menu dark absolute max-height="500px" max-width="300px" v-model="menu" :z-index="999">        
+      <v-menu dark absolute offset-overflow max-height="500px" max-width="300px" v-model="menu" :z-index="999">        
         <v-list v-for="(movie, index) in finded" :key="index">
-          <v-list-item to="/teste">
-            <v-list-item-title>{{ movie.title }}</v-list-item-title>
+          <v-list-item :to="`/movie/${movie.id}`">
+            <v-list-item-avatar style="border-radius: 5px;">
+              <v-img :src="movie.url"></v-img>
+            </v-list-item-avatar>
+            <v-list-item-content>{{ movie.title }}</v-list-item-content>
           </v-list-item>
         </v-list>
       </v-menu>  
