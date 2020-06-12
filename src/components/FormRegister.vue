@@ -1,35 +1,52 @@
 <template>
     <v-row justify="center">
-        <v-dialog v-model="dialog" persistent max-width="600px">
+        <v-dialog v-model="dialog" dark persistent max-width="500px">
         <template v-slot:activator="{ on, attrs }">
             <v-btn dark v-bind="attrs" v-on="on">Cadastro/Login</v-btn>
-        </template>
-        <v-card>
-            <v-card-title>
-            <span class="headline">Preencha seus dados</span>
-            </v-card-title>
-            <v-card-text>
-            <v-container>
-                <v-row>
-                <v-col cols="12" sm="6" md="4">
-                    <v-text-field label="Nome completo*" required></v-text-field>
-                </v-col>              
-                <v-col cols="12">
-                    <v-text-field label="Email*" required></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                    <v-text-field label="Senha*" type="password" required></v-text-field>
-                </v-col>              
-                </v-row>
-            </v-container>
-            <small>*Campos obrigatórios</small>
-            </v-card-text>
-            <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-            <v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
-            </v-card-actions>
-        </v-card>
+        </template>        
+                                    
+        <v-tabs vertical dark>
+            <v-tab>Cadastro</v-tab>
+            <v-tab>Login</v-tab>
+
+            <v-tab-item> 
+                <v-card flat dark class="authCard">
+                    <v-container>
+                        <v-row>                                      
+                        <v-col cols="8">
+                            <v-text-field label="Email*" required></v-text-field>
+                        </v-col>
+                        <v-col cols="8">
+                            <v-text-field label="Senha*" type="password" required></v-text-field>
+                        </v-col>              
+                        </v-row>
+                    
+                    <small>*Campos obrigatórios</small> 
+                    <br><br><br>
+                    <v-btn dark>Enviar</v-btn>              
+                    </v-container>
+                </v-card>              
+            </v-tab-item>
+            <v-tab-item>  
+                <v-card flat dark class="authCard">
+                    <v-container>
+                        <v-row>                                          
+                            <v-col cols="8">
+                                <v-text-field label="Email*" required></v-text-field>
+                            </v-col>
+                            <v-col cols="8">
+                                <v-text-field label="Senha*" type="password" required></v-text-field>
+                            </v-col>              
+                        </v-row>
+                        <small>*Campos obrigatórios</small>
+                        <br><br><br>
+                        <v-btn dark>Enviar</v-btn>              
+                    </v-container>                
+                </v-card>        
+                                                        
+            </v-tab-item>
+        </v-tabs>                                    
+        
     </v-dialog>
   </v-row>
 </template>
@@ -40,6 +57,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss" scoped>
+    .authCard {
+        border-radius: 0 !important;
+    }
 </style>

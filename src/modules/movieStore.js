@@ -13,7 +13,8 @@ const movieStore = {
 
     actions: {
         async getMovies ({ commit }) {
-            const response = await axios.get('https://jsonplaceholder.typicode.com/photos')             
+            const response = await axios.get('https://jsonplaceholder.typicode.com/photos')
+            console.log(response.data)             
             commit('FETCH_MOVIES', response.data)
         },
     },
@@ -22,6 +23,10 @@ const movieStore = {
         allMovies: state => { 
             return state.movies.filter(movie => movie.id < 10) 
         },
+
+        someMovies: state => {
+            return state.movies.filter(movie => movie.id < 50)            
+        }, 
 
         topRatedMovies: state => { 
             return state.movies 

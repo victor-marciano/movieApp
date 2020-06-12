@@ -38,8 +38,12 @@
       }
     },
 
+    created() {
+        this.$store.dispatch('getMovies')
+    },
+
     computed: {
-        getMovies() {
+        getMovies() {    
             return this.$store.getters.allMovies
         }
     },

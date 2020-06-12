@@ -15,7 +15,7 @@ export default {
         background-color: black;
         height: 400px;
         width: 100%;
-        padding-top: 100px;
+        
         .section {
             color: white;
         }

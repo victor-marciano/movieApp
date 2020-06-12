@@ -5,6 +5,8 @@ import vuetify from './plugins/vuetify';
 import Vuex from 'vuex'
 import movieStore from './modules/movieStore.js'
 
+Vue.use(Vuex)
+
 const store = new Vuex.Store({
   modules: {
     movie: movieStore
