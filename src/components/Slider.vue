@@ -1,13 +1,26 @@
 <template>
-    <v-row>
+    <v-row class="home-movies">
         <swiper class="swiper" :options="swiperOption">
             <swiper-slide v-for="(movie, index) in getMovies" :key="index">
-                 <v-col>         
-                    <v-card class="mx-auto" max-width="500" width="250px" shaped>
-                        <v-img class="white--text align-end" height="400px" :src="movie.url">
-                        <v-card-title>{{ movie.title }}</v-card-title>
-                        </v-img>            
-                    </v-card>          
+                 <v-col>  
+                   <v-hover v-slot:default="{ hover }">       
+                      <v-card class="mx-auto" max-width="500" width="250px" shaped :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                          <v-img class="white--text align-end" height="400px" :src="movie.url"></v-img>                        
+                          <v-expand-transition>
+                            <div v-if="hover" class="d-flextransition-fast-in-fast-out v-card--reveal"
+                              style="height: 70%;"
+                            >
+                              <div class="flex-row mt-5">
+                                <h3>{{ movie.title }}</h3>
+                              </div>
+                              <v-avatar color="indigo" size="64" class="flex-row mt-5">
+                                <span class="white--text headline">8.5</span>
+                              </v-avatar>
+                              <p style="font-size:14px" class="flex-row mt-5">Descrição</p>
+                            </div>
+                          </v-expand-transition>
+                      </v-card>
+                    </v-hover>        
                 </v-col>
             </swiper-slide>
         </swiper>
@@ -50,21 +63,21 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped>  
 
   .swiper {
     height: 100%;
     width: 100%;
 
     position: relative;
-    bottom: 300px;
+    bottom: 200px;
 
     .swiper-slide {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 300px;
-      height: 600px;
+      height: 400px;
       text-align: center;
       font-weight: 500;
       font-size: 20;
@@ -74,4 +87,18 @@
       color: black;
     }
   }
+
+  .v-card--reveal {
+    // align-items: center;
+    align-items: baseline;
+    bottom: 0;
+    justify-content: center;
+    opacity: .9;
+    position: absolute;
+    width: 100%;  
+    color: white;
+    background-color: black;
+    border-bottom-right-radius: 0 !important;
+  }
+
 </style>

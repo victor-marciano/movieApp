@@ -41,6 +41,6 @@ export default {
 <style lang="scss" scoped>  
   .home {
     background-color: lighten(black, 3%);
-    color: white;   
+    color: white;    
   }
 </style>
