@@ -2,19 +2,22 @@ import axios from 'axios'
 
 const movieStore = {
     state: () => ({ 
-        movies: []
+        movies: [],
+        search: []
     }),
 
     mutations: {
         FETCH_MOVIES(state, movies) {
             state.movies = movies
+        },
+        SEARCH_MOVIE(state, search) {
+            state.search = search
         }
     },
 
     actions: {
         async getMovies ({ commit }) {
-            const response = await axios.get('https://jsonplaceholder.typicode.com/photos')
-            console.log(response.data)             
+            const response = await axios.get('https://jsonplaceholder.typicode.com/photos')                
             commit('FETCH_MOVIES', response.data)
         },
     },
@@ -38,7 +41,7 @@ const movieStore = {
 
         upcomingMovies: state => { 
             return state.movies 
-        },
+        }
     }
 }
 

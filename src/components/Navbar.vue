@@ -11,8 +11,14 @@
 
     <v-spacer></v-spacer>
         
-    <v-text-field placeholder="Encontre um filme" full-width append-icon="mdi-magnify"></v-text-field>
-      
+      <v-text-field v-model="search" placeholder="Encontre um filme" full-width append-icon="mdi-magnify"></v-text-field>          
+      <v-menu dark absolute max-height="500px" max-width="300px" v-model="menu" :z-index="999">        
+        <v-list v-for="(movie, index) in finded" :key="index">
+          <v-list-item to="/teste">
+            <v-list-item-title>{{ movie.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>  
       <v-spacer></v-spacer>
 
       <form-register></form-register>     
@@ -34,10 +40,47 @@ import FormRegister from './FormRegister.vue'
 export default {
     components: {
         FormRegister
-    }
+    },
+
+    data() {
+      return {
+        search: '',
+        finded: [],
+        movies: [],
+        menu: false
+      }
+    },
+
+    created() {
+      this.movies = this.$store.getters.someMovies
+    },
+
+    watch: {
+      search: {
+        handler (input) { 
+          this.finded = this.movies.filter(movie =>  movie.title.includes(input))  
+          this.menu = input ? true : false  
+          console.log(this.menu)
+        },
+        deep: true
+      }
+    },
+
+    computed: {
+      getFinded() {
+        return this.finded
+      },
+      showMenu () {
+        return this.menu
+      }
+    },
 }
 </script>
 
-<style>
-
+<style lang="scss">
+  .v-app-bar__nav-icon {
+    @media (min-width: 991px) {
+      display: none;
+    }
+  }
 </style>
