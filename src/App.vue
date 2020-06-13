@@ -1,9 +1,11 @@
 <template>
-  <v-app>    
-    <navbar></navbar>
-    <banner></banner>    
-    <router-view></router-view>    
-    <Footer></Footer>
+  <v-app>
+    <perfect-scrollbar>    
+      <navbar></navbar>
+      <banner></banner>    
+      <router-view></router-view>    
+      <Footer></Footer>
+    </perfect-scrollbar>
   </v-app>
 </template>
 
@@ -23,5 +25,25 @@ export default {
 };
 </script>
 
-<style lang="scss">  
+<style lang="scss"> 
+::-webkit-scrollbar {
+  width: 10px !important;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1 !important; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: black !important; 
+  opacity: 0.8;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555 !important; 
+}
+
 </style>

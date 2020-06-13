@@ -9,26 +9,41 @@
         <v-img src="../assets/movieHubLogo.png"></v-img>
       </v-toolbar-title>         
 
-    <v-spacer></v-spacer>
-        
-      <v-text-field v-model="search" placeholder="Encontre um filme" full-width append-icon="mdi-magnify"></v-text-field>          
-      <v-menu dark absolute offset-overflow max-height="500px" max-width="300px" v-model="menu" :z-index="999">        
-        <v-list v-for="(movie, index) in finded" :key="index">
-          <v-list-item :to="`/movie/${movie.id}`">
-            <v-list-item-avatar style="border-radius: 5px;">
-              <v-img :src="movie.url"></v-img>
-            </v-list-item-avatar>
-            <v-list-item-content>{{ movie.title }}</v-list-item-content>
+    <v-spacer></v-spacer>        
+      
+      <v-autocomplete
+        dark                 
+        :items="this.$store.getters.someMovies"
+        item-text="title"                      
+        hide-details
+        hide-selected               
+        label="Encontre um filme"
+        append-icon="mdi-magnify"        
+        clearable              
+        solo               
+      >
+        <template v-slot:no-data>
+          <v-list-item>
+            <v-list-item-title>
+              Nenhum filme encontrado.
+            </v-list-item-title>
           </v-list-item>
-        </v-list>
-      </v-menu>  
+        </template>     
+        <template v-slot:item="{ item }">         
+            <v-list-item-avatar size="64" style="border-radius:5px;">
+              <v-img :src="item.url"></v-img>
+            </v-list-item-avatar>
+            <v-list-item-title v-text="item.title"></v-list-item-title>         
+        </template>        
+      </v-autocomplete>      
+      
       <v-spacer></v-spacer>
 
       <form-register></form-register>     
 
       <template v-slot:extension>
         <v-tabs align-with-title>
-          <v-tab to="/populares">Populares</v-tab>
+          <v-tab to="/">Populares</v-tab>
           <v-tab to="/lancamentos">Lançamentos</v-tab>
           <v-tab to="/melhores">Melhores</v-tab>
           <v-tab to="/chegando">Em breve</v-tab>
@@ -43,40 +58,7 @@ import FormRegister from './FormRegister.vue'
 export default {
     components: {
         FormRegister
-    },
-
-    data() {
-      return {
-        search: '',
-        finded: [],
-        movies: [],
-        menu: false
-      }
-    },
-
-    created() {
-      this.movies = this.$store.getters.someMovies
-    },
-
-    watch: {
-      search: {
-        handler (input) { 
-          this.finded = this.movies.filter(movie =>  movie.title.includes(input))  
-          this.menu = input ? true : false  
-          console.log(this.menu)
-        },
-        deep: true
-      }
-    },
-
-    computed: {
-      getFinded() {
-        return this.finded
-      },
-      showMenu () {
-        return this.menu
-      }
-    },
+    }
 }
 </script>
 
