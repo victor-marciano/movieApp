@@ -101,4 +101,15 @@ export default {
       display: none;
     }
   }
+
+  @media (max-width: 991px) {
+    .v-slide-group {
+      right: 25px;
+    }
+
+    .v-slide-group__prev, .v-slide-group__prev--disabled {
+      display: none !important;
+    }
+  }
+
 </style>
