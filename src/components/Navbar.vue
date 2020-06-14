@@ -45,6 +45,10 @@
       
       <v-spacer></v-spacer>
 
+      <v-btn icon>
+        <v-icon size="24">mdi-magnify</v-icon>
+      </v-btn>
+      
       <form-register></form-register>     
 
       <template v-slot:extension>
