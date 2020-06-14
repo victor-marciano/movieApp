@@ -1,7 +1,8 @@
 <template>
-  <v-app-bar absolute dark src="https://i.picsum.photos/id/274/3824/2520.jpg" fade-img-on-scroll>
+  <!-- <v-app-bar absolute dark src="https://i.picsum.photos/id/274/3824/2520.jpg" fade-img-on-scroll> -->
+  <v-app-bar absolute dark src="../assets/cinema.jpg" fade-img-on-scroll>
       <template v-slot:img="{ props }">
-        <v-img v-bind="props" gradient="to top right, rgba(0,0,0,.8), rgba(10,10,10,.9)"></v-img>
+        <v-img v-bind="props" gradient="to top right, rgba(0,0,0,.7), rgba(10,10,10,.9)"></v-img>
       </template>
 
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
