@@ -16,18 +16,18 @@
             <v-tab-item> 
                 <v-card flat dark class="authCard">
                     <v-container>
-                        <v-form @submit.prevent="register">
+                        <v-form @submit.prevent="register" v-model="valid" lazy-validation>
                             <v-row>   
                                 <v-col cols="8">
-                                    <v-text-field v-model="email" label="Email*" required></v-text-field>
+                                    <v-text-field :rules="emailRules" v-model="email" label="Email*" required></v-text-field>
                                 </v-col>
                                 <v-col cols="8">
-                                    <v-text-field v-model="password" label="Senha*" type="password" required></v-text-field>
+                                    <v-text-field :rules="passwordRules" v-model="password" label="Senha*" type="password" required></v-text-field>
                                 </v-col>                           
                             </v-row>                    
                             <small>*Campos obrigatórios</small> 
                             <br><br><br>
-                            <v-btn dark type="submit">
+                            <v-btn dark type="submit" :disabled="!isValid">
                                 <v-progress-circular v-show="isLoading" :size="15" indeterminate></v-progress-circular>
                                 Enviar
                             </v-btn>              
@@ -49,7 +49,7 @@
                             </v-row>
                             <small>*Campos obrigatórios</small>
                             <br><br><br>
-                            <v-btn dark type="submit">
+                            <v-btn dark type="submit" :disabled="!isValid">
                                 <v-progress-circular v-show="isLoading" :size="15" indeterminate></v-progress-circular>
                                 Enviar
                             </v-btn>              
@@ -67,15 +67,24 @@ export default {
     name: 'form-register',
     data() {
         return {
+            valid: true,
             email: '',
             password: '',
+            emailRules: [
+                v => !!v || 'E-mail é obrigatório',
+                v => /.+@.+/.test(v) || 'E-mail inválido',
+            ],
+            passwordRules: [
+                v => !!v || 'Senha é obrigatória'    
+            ],
             loading: false,
             success: false
         }
     },
 
     methods: {
-      register () {  
+      register () {    
+          console.log(this.valid)
         this.loading = true
         setTimeout(() => {
             this.loading = false
@@ -83,7 +92,7 @@ export default {
         this.success = true
       },
       
-      auth () {  
+      auth () {    
         this.loading = true
         setTimeout(() => {
             this.loading = false
@@ -95,6 +104,10 @@ export default {
     computed: {
         isLoading() {
             return this.loading
+        },
+
+        isValid() {
+            return this.valid
         }
     },
 }
