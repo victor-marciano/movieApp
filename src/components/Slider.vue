@@ -1,6 +1,6 @@
 <template>
     <v-row class="home-movies">
-        <swiper class="swiper" :options="swiperOption">
+        <swiper class="swiper" :options="getOptions">
             <swiper-slide v-for="(movie, index) in getMovies" :key="index">
                  <v-col>  
                    <v-hover v-slot:default="{ hover }">       
@@ -47,6 +47,14 @@
           autoplay: {
             delay: 3000,
             }
+        },
+
+        mobileOption: {
+          slidesPerView: 1,
+          spaceBetween: 10,
+          autoplay: {
+            delay: 2000
+          }
         }
       }
     },
@@ -58,6 +66,10 @@
     computed: {
         getMovies() {    
             return this.$store.getters.allMovies
+        },
+
+        getOptions() {
+          return screen.width < 991 ? this.mobileOption : this.swiperOption
         }
     },
   }
