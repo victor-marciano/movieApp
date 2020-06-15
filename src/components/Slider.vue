@@ -76,13 +76,10 @@
 </script>
 
 <style lang="scss" scoped>  
-
+  
   .swiper {
     height: 100%;
     width: 100%;
-
-    position: relative;
-    bottom: 200px;
 
     .swiper-slide {
       display: flex;
@@ -100,8 +97,7 @@
     }
   }
 
-  .v-card--reveal {
-    // align-items: center;
+  .v-card--reveal {    
     align-items: baseline;
     bottom: 0;
     justify-content: center;

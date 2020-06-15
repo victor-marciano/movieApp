@@ -1,7 +1,6 @@
 <template>
   <v-app>        
-    <navbar></navbar>
-    <banner></banner>
+    <navbar></navbar>    
     <keep-alive>
       <router-view></router-view>            
     </keep-alive>    
@@ -11,14 +10,12 @@
 
 <script>
 import Navbar from './components/Navbar.vue'
-import Banner from './components/Banner.vue'
 import Footer from './components/Footer.vue'
 
 export default {
   name: 'App',
   components: {
-    Navbar,
-    Banner,
+    Navbar,    
     Footer
   }
 

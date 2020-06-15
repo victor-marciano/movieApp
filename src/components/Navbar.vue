@@ -1,14 +1,10 @@
 <template>
-  <div>
-    
-  <!-- <v-app-bar absolute dark src="https://i.picsum.photos/id/274/3824/2520.jpg" fade-img-on-scroll> -->
-  <v-app-bar absolute dark src="../assets/cinema.jpg" fade-img-on-scroll>
+  <div>    
+  
+  <v-app-bar dark src="../assets/cinema.jpg" fade-img-on-scroll >
       <template v-slot:img="{ props }">
         <v-img v-bind="props" gradient="to top right, rgba(0,0,0,.7), rgba(10,10,10,.9)"></v-img>
       </template>
-
-      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-
 
       <v-toolbar-title>
         <v-img src="../assets/movieHubLogo.png"></v-img>
@@ -59,27 +55,7 @@
           <v-tab to="/chegando">Em breve</v-tab>
         </v-tabs>
       </template>
-    </v-app-bar>    
-      <v-navigation-drawer dark v-model="drawer" absolute temporary>
-        <v-list nav dense>
-          <v-list-item-group v-model="group">
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon>mdi-home</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>Início</v-list-item-title>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon>mdi-login</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>Cadastro/Login</v-list-item-title>
-            </v-list-item>
-
-          </v-list-item-group>
-        </v-list>
-      </v-navigation-drawer>
+    </v-app-bar>     
   </div>
 </template>
 

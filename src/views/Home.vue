@@ -52,5 +52,7 @@ export default {
   .home {
     background-color: lighten(black, 3%);
     color: white;    
+
+    padding-top: 25px;
   }
 </style>
