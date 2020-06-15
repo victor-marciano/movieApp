@@ -4,7 +4,7 @@
             <swiper-slide v-for="(movie, index) in getMovies" :key="index">
                  <v-col>  
                    <v-hover v-slot:default="{ hover }">       
-                      <v-card class="mx-auto" max-width="500" width="250px" shaped :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                      <v-card :to="{ name: `movie`, params: { movie: movie } }" class="mx-auto" max-width="500" width="250px" shaped :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
                           <v-img class="white--text align-end" height="400px" :src="movie.url"></v-img>                        
                           <v-expand-transition>
                             <div v-if="hover" class="d-flextransition-fast-in-fast-out v-card--reveal"

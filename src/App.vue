@@ -1,11 +1,11 @@
 <template>
-  <v-app>
-    <perfect-scrollbar>    
-      <navbar></navbar>
-      <banner></banner>    
-      <router-view></router-view>    
-      <Footer></Footer>
-    </perfect-scrollbar>
+  <v-app>        
+    <navbar></navbar>
+    <banner></banner>
+    <keep-alive>
+      <router-view></router-view>            
+    </keep-alive>    
+    <Footer></Footer>    
   </v-app>
 </template>
 

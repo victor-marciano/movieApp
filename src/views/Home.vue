@@ -15,7 +15,7 @@
         </v-row>
       </div> 
       <div class="text-center mt-5">
-        <v-pagination dark v-model="page" :length="4" prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination>
+        <v-pagination dark v-model="page" :length="pages" prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination>
       </div>
     </v-container>    
   </section>
@@ -29,11 +29,21 @@ export default {
   components: {
     Slider    
   },
+
+  data() {
+    return {
+      pageLimit: 20
+    }
+  },
   
   computed: {    
       someMovies() {
           return this.$store.getters.someMovies
-      }    
+      },
+      
+      pages () {  
+        return this.$store.getters.someMovies.length / this.pageLimit
+      }
   },
 }
 </script>
