@@ -10,19 +10,20 @@ const routes = [
     path: '/',
     name: 'home',
     component: Home,
+    props: true,
     meta: {
-      title: 'Movie hub | Sua plataforma de filmes'  
+      title: 'Movie hub | Sua plataforma de filmes'
     }
-  },  
+  },
   {
     path: '/movie/',
     name: 'movie',
     component: Movie,
     props: true,
     meta: {
-      title: 'Movie hub | Sua plataforma de filmes'  
+      title: 'Movie hub | Sua plataforma de filmes'
     }
-  }  
+  }
 ]
 
 const router = new VueRouter({
@@ -31,10 +32,10 @@ const router = new VueRouter({
   routes
 })
 
-router.beforeEach((to, from, next) => {  
-  const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);   
-  
-  if(nearestWithTitle) document.title = nearestWithTitle.meta.title;
+router.beforeEach((to, from, next) => {
+  const nearestWithTitle = to.matched.slice().reverse().find(r => r.meta && r.meta.title);
+
+  if (nearestWithTitle) document.title = nearestWithTitle.meta.title;
 
   Array.from(document.querySelectorAll('[data-vue-router-controlled]')).map(el => el.parentNode.removeChild(el));
 
