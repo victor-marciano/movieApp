@@ -1,61 +1,46 @@
 <template>
-  <section class="home">
-    <v-container fluid> 
+  <section class="home">        
+        <v-img :src="`https://image.tmdb.org/t/p/original/${getMovies[0].backdrop_path}`" style="opacity: 0.9;">
+          <template v-slot.placeholder>
+            <div style="width:350px; padding: 15px;">
+              <h1 style="padding-bottom: 25px; font-size: 54px;">{{getMovies[0].title}}</h1>
+              <p style="font-size:20px;">{{getMovies[0].overview}}</p>            
+            </div>
+          </template>
+        </v-img> 
+        <v-container fluid>
 
-      <div>          
-        <h2>Lançamento</h2>
-        <v-row>
-          <v-col cols="12" md="7">
-            <v-parallax
-              dark
-              :src="`https://image.tmdb.org/t/p/w500${getLatest.poster_path}`"
-              alt="No image available for this movie yet"
-              height="425"
-            >
-            </v-parallax>
-          </v-col>
-          <v-col cols="12" md="5">
-            <h1>{{ getLatest.title }}</h1>
-            <div>
-              <p>{{ getLatest.overview }}</p>
-            </div>
-            <div>
-              <v-chip v-show="getLatest.genres" class="ma-2" dark label text-color="white">{{ getLatest.genres.name }}</v-chip>
-              <v-chip v-show="getLatest.release_date" class="ma-2" dark label text-color="white">{{ getLatest.release_date }}</v-chip>
-              <v-chip v-show="getLatest.status" class="ma-2" dark label text-color="white">{{ getLatest.status }}</v-chip>              
-            </div>
-          </v-col>
-        </v-row>
-        <h2>Todos os filmes</h2>
-        <v-row>
-          <v-col v-for="(movie, index) in getMovies" :key="index">
-            <v-hover v-slot:default="{ hover }">       
-              <v-card :to="{ name: `movie`, params: { movie: movie } }" class="mx-auto card-movie" shaped :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
-                  <v-img class="white--text align-end" height="400px" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"></v-img>                        
-                  <v-expand-transition>
-                    <div v-if="hover" class="d-flextransition-fast-in-fast-out v-card--reveal"
-                      style="height: 70%;"
-                    >
-                      <div class="flex-row mt-3 float-left" style="width: 150px;">
-                        <h5>{{ movie.title }}</h5>
+          <h2>Todos os filmes</h2>
+          <v-row>
+            <v-col v-for="(movie, index) in getMovies" :key="index">
+              <v-hover v-slot:default="{ hover }">       
+                <v-card :to="{ name: `movie`, params: { movie: movie } }" class="mx-auto card-movie" shaped :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                    <v-img class="white--text align-end" height="400px" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"></v-img>                        
+                    <v-expand-transition>
+                      <div v-if="hover" class="d-flextransition-fast-in-fast-out v-card--reveal"
+                        style="height: 70%;"
+                      >
+                        <div class="flex-row mt-3 float-left" style="width: 150px;">
+                          <h5>{{ movie.title }}</h5>
+                        </div>
+                        <v-avatar color="indigo" size="42" class="flex-row mt-3">
+                          <span class="white--text headline">{{ movie.vote_average }}</span>
+                        </v-avatar>
+                        <p style="font-size:12px; clear:both;" class="flex-row mt-5">{{ movie.overview }}</p>
                       </div>
-                      <v-avatar color="indigo" size="42" class="flex-row mt-3">
-                        <span class="white--text headline">{{ movie.vote_average }}</span>
-                      </v-avatar>
-                      <p style="font-size:12px; clear:both;" class="flex-row mt-5">{{ movie.overview }}</p>
-                    </div>
-                  </v-expand-transition>
-              </v-card>
-            </v-hover>
-          </v-col>
-        </v-row>
-      </div> 
+                    </v-expand-transition>
+                </v-card>
+              </v-hover>
+            </v-col>
+          </v-row>
+        </v-container>
+      
       <div class="text-center mt-5">
         <v-container>
           <v-pagination dark :length="pages" prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination>
         </v-container>
       </div>
-    </v-container>    
+        
   </section>
 </template>
 
@@ -75,16 +60,9 @@ export default {
       default: 1
     }
   },
-
-  data() {
-    return {       
-      movies: []  
-    }
-  },
   
-  created() {
-    this.movies = this.$store.dispatch('getMovies', { page: this.page, sort: this.sort })
-    this.$store.dispatch('getLatest')
+  beforeMount() {
+    this.$store.dispatch('getMovies', { page: this.page, sort: this.sort })  
   },
 
   computed: {    
@@ -94,10 +72,6 @@ export default {
       
       pages () {  
         return this.$store.getters.allMovies.total_pages
-      },
-
-      getLatest() {  
-        return this.$store.getters.latestMovie
       }
   },
 }
@@ -130,4 +104,6 @@ export default {
       width: 175px;
     }
   }
+
+  
 </style>
