@@ -48,10 +48,10 @@
 
       <template v-slot:extension>
         <v-tabs style="position: absolute; left: 30px;">
-          <v-tab :to="{ name: `home`, params: { sort: 'popular' } }">Populares</v-tab>
-          <v-tab :to="{ name: `home`, params: { sort: 'now' } }">Lançamentos</v-tab>
-          <v-tab :to="{ name: `home`, params: { sort: 'top' } }">Melhores</v-tab>
-          <v-tab :to="{ name: `home`, params: { sort: 'upcoming' } }">Em breve</v-tab>
+          <v-tab :to="{ name: `popular`, params: { sort: 'popular' } }">Populares</v-tab>
+          <v-tab :to="{ name: `now`, params: { sort: 'now' } }">Lançamentos</v-tab>
+          <v-tab :to="{ name: `top`, params: { sort: 'top' } }">Melhores</v-tab>
+          <v-tab :to="{ name: `upcoming`, params: { sort: 'upcoming' } }">Em breve</v-tab>
         </v-tabs>
       </template>
     </v-app-bar>     
@@ -64,13 +64,7 @@ import FormRegister from './FormRegister.vue'
 export default {
     components: {
         FormRegister
-    },
-
-    data() {
-      return {
-        drawer: false,
-      }
-    },
+    }
 }
 </script>
 

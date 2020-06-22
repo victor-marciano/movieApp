@@ -74,6 +74,17 @@ export default {
         return this.$store.getters.allMovies.total_pages
       }
   },
+
+  methods: {
+    updateMovies () {
+      console.log(this.sort)
+      this.$store.dispatch('getMovies', { page: this.page, sort: this.sort })
+    }
+  },
+
+  watch: { 
+    '$route': 'updateMovies'
+  }
 }
 </script>
 

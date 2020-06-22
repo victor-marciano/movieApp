@@ -7,8 +7,35 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
+    path: '/popular',
+    name: 'popular',
+    component: Home,
+    props: true,
+    meta: {
+      title: 'Movie hub | Sua plataforma de filmes'
+    }
+  },
+  {
+    path: '/top',
+    name: 'top',
+    component: Home,
+    props: true,
+    meta: {
+      title: 'Movie hub | Sua plataforma de filmes'
+    }
+  },
+  {
+    path: '/now',
+    name: 'now',
+    component: Home,
+    props: true,
+    meta: {
+      title: 'Movie hub | Sua plataforma de filmes'
+    }
+  },
+  {
+    path: '/upcoming',
+    name: 'upcoming',
     component: Home,
     props: true,
     meta: {
