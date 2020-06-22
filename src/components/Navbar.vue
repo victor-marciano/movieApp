@@ -1,7 +1,6 @@
-<template>
-  <div>    
-  
-  <v-app-bar dark src="../assets/cinema.jpg" fade-img-on-scroll >
+<template>  
+  <v-app-bar dark src="../assets/cinema.jpg" fixed
+      >
       <template v-slot:img="{ props }">
         <v-img v-bind="props" gradient="to top right, rgba(0,0,0,.7), rgba(10,10,10,.9)"></v-img>
       </template>
@@ -48,15 +47,15 @@
       <form-register></form-register>     
 
       <template v-slot:extension>
-        <v-tabs align-with-title>
-          <v-tab to="/">Populares</v-tab>
-          <v-tab to="/lancamentos">Lançamentos</v-tab>
-          <v-tab to="/melhores">Melhores</v-tab>
-          <v-tab to="/chegando">Em breve</v-tab>
+        <v-tabs style="position: absolute; left: 30px;">
+          <v-tab :to="{ name: `home`, params: { sort: 'popular' } }">Populares</v-tab>
+          <v-tab :to="{ name: `home`, params: { sort: 'now' } }">Lançamentos</v-tab>
+          <v-tab :to="{ name: `home`, params: { sort: 'top' } }">Melhores</v-tab>
+          <v-tab :to="{ name: `home`, params: { sort: 'upcoming' } }">Em breve</v-tab>
         </v-tabs>
       </template>
     </v-app-bar>     
-  </div>
+  
 </template>
 
 <script>

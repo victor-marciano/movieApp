@@ -23,6 +23,7 @@ export default {
 </script>
 
 <style lang="scss"> 
+
 ::-webkit-scrollbar {
   width: 10px !important;
 }

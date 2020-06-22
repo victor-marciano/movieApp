@@ -1,47 +1,61 @@
 import axios from 'axios'
 
 const movieStore = {
-    state: () => ({ 
+    state: () => ({
         movies: [],
-        search: []
+        popular: [],
+        upcoming: [],
+        topRated: [],
+        nowPlaying: []
     }),
 
     mutations: {
+        FETCH_POPULAR(state, popular) {
+            state.popular = popular
+        },
+        FETCH_TOP_RATED(state, topRated) {
+            state.topRated = topRated
+        },
+        FETCH_UPCOMING(state, upcoming) {
+            state.upcoming = upcoming
+        },
+        FETCH_NOW_PLAYING(state, nowPlaying) {
+            state.nowPlaying = nowPlaying
+        },
         FETCH_MOVIES(state, movies) {
             state.movies = movies
-        },
-        SEARCH_MOVIE(state, search) {
-            state.search = search
         }
     },
 
     actions: {
-        async getMovies ({ commit }) {
-            const response = await axios.get('https://jsonplaceholder.typicode.com/photos')                
+        async getMovies({ commit }, { page, sort }) {
+            const response = await axios.get(`https://api-moviehub.herokuapp.com/${sort}?page=${page}`)
             commit('FETCH_MOVIES', response.data)
-        },
+        }
     },
 
     getters: {
-        allMovies: state => { 
-            return state.movies.filter(movie => movie.id < 10) 
+        allMovies: state => {
+            return state.movies
         },
 
-        someMovies: state => {
-            return state.movies.filter(movie => movie.id < 50)            
-        }, 
-
-        topRatedMovies: state => { 
-            return state.movies 
+        popularMovies: state => {
+            return state.popular
         },
 
-        newMovies: state => {
-            return state.movies 
+        topRatedMovies: state => {
+            return state.topRated
         },
 
-        upcomingMovies: state => { 
-            return state.movies 
-        }
+        nowPlayingMovies: state => {
+            return state.nowPlaying
+        },
+
+        upcomingMovies: state => {
+            return state.upcoming
+        },
+
+        latestMovie: state => state.movies.results[state.movies.results.length - 1]
     }
 }
 
