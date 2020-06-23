@@ -13,13 +13,12 @@
       
       <v-autocomplete
         dark                 
-        :items="this.$store.getters.someMovies"
+        :items="this.$store.getters.allMovies.results"
         item-text="title"                      
         hide-details
         hide-selected               
         label="Encontre um filme"
-        append-icon="mdi-magnify"        
-        clearable              
+        append-icon="mdi-magnify"                     
         solo 
         class="d-none d-sm-flex"              
       >
@@ -32,7 +31,7 @@
         </template>     
         <template v-slot:item="{ item }">         
             <v-list-item-avatar size="64" style="border-radius:5px;">
-              <v-img :src="item.url"></v-img>
+              <v-img :src="item.poster_path"></v-img>
             </v-list-item-avatar>
             <v-list-item-title v-text="item.title"></v-list-item-title>         
         </template>        
@@ -47,7 +46,7 @@
       <form-register></form-register>     
 
       <template v-slot:extension>
-        <v-tabs style="position: absolute; left: 30px;">
+        <v-tabs style="position: absolute; left: 30px; top:5px;">
           <v-tab :to="{ name: `popular`, params: { sort: 'popular' } }">Populares</v-tab>
           <v-tab :to="{ name: `now`, params: { sort: 'now' } }">Lançamentos</v-tab>
           <v-tab :to="{ name: `top`, params: { sort: 'top' } }">Melhores</v-tab>
