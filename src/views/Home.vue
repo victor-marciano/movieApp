@@ -37,7 +37,7 @@
       
       <div class="text-center mt-5">
         <v-container>
-          <v-pagination dark :value="1" v-on:input="updateMovies" v-model="actualPage" :length="pages" prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination>
+          <v-pagination dark v-on:input="updateMovies" v-model="actualPage" :length="pages" prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination>
         </v-container>
       </div>
         

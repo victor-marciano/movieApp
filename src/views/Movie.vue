@@ -1,9 +1,8 @@
 <template>
     <div>
-
-        <section class="movie-data" :style="{'background': `url(https://image.tmdb.org/t/p/original${getMovie.backdrop_path})`}"> 
+        <section class="movie-data" :style="{'background': `url(https://image.tmdb.org/t/p/original${getMovie.backdrop_path})`, 'background-size': 'contain'}"> 
             <v-container>    
-                <v-card dark height="600" style="opacity: 0.9; padding: 25px;">
+                <v-card dark style="opacity: 0.9; padding: 25px;">
                     <template v-slot.default>
                         <v-row>
                             <v-col cols="12" md="6">
@@ -11,21 +10,19 @@
                                 <small style="position: relative; bottom: 10px">{{ getMovie.tagline }}</small>
                                 <p style="font-size: 20px; margin-top: 10px;">{{ getMovie.overview }}</p>
                                 <div>
+                                    <h3>Categorias</h3>
+                                    <v-chip v-for="(genre, index) in getMovie.genres" :key="index" label class="mr-3">
+                                        {{ genre.name }}
+                                    </v-chip>
+                                </div>
+                                <div>
                                     <h3>Avaliação média</h3>
                                     <v-avatar size="48" color="indigo">
                                         {{ getMovie.vote_average }}
                                     </v-avatar>
                                 </div>
                                 <small>Em um total de {{ getMovie.vote_count }} votos</small>
-                                <div>
-                                    <h3>Categorias</h3>
-                                    <v-chip v-for="(genre, index) in getMovie.genres" :key="index" label class="mr-3">
-                                        {{ genre.name }}
-                                    </v-chip>
-                                </div>
 
-                            </v-col>
-                            <v-col cols="12" md="6">
                                 <div>
                                     <h3>Avalie este filme</h3>
                                     <v-rating
@@ -43,12 +40,20 @@
                                     ></v-rating>
                                     <small>Somente usuários logados podem avaliar!</small>
                                 </div>
-                                <div class="images-section">
-                                    <h3>Fotos</h3>
-
+                            </v-col>
+                            <v-col cols="12" md="6">                                
+                                <div class="images-section" v-viewer>
+                                    <h3>Galeria</h3>
+                                    <template v-for="(image, index) in getMovie.images.backdrops">
+                                        <img class="image"
+                                            :src="`https://image.tmdb.org/t/p/original${image.file_path}`" width="150" height="100" :key="index"
+                                            :data-src="`https://image.tmdb.org/t/p/original${image.file_path}`"
+                                        >
+                                    </template> 
                                 </div>
+                                <small>Clique para ampliar as imagens</small>                                   
                                 <div class="video-section">
-                                    <h3>Videos</h3>
+                                    <h3>Mídia</h3>
                                 </div>
                             </v-col>        
                         </v-row>
@@ -84,10 +89,17 @@
 <script>
 
 export default {
-  name: 'Movie', 
-  props: ['movie'],
+  name: 'Movie',  
+
+  data() {
+      return {
+          rating: 0,
+          movie: 0
+      }
+  },
   
-  beforeMount() {    
+  beforeMount() {   
+      this.movie = this.$route.params.movie; 
       this.$store.dispatch('getMovieDetails', { movie: this.movie })
   },
 
@@ -110,5 +122,11 @@ export default {
 
   .actors {
       background-color: black;
+  }
+
+  .image-section {
+      .image {
+          cursor: pointer !important;
+      }
   }
 </style>
