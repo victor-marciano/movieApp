@@ -3,7 +3,8 @@ import axios from 'axios'
 const movieStore = {
     state: () => ({
         movies: [],
-        movieDetails: {}
+        movieDetails: {},
+        search: []
     }),
 
     mutations: {
@@ -13,6 +14,10 @@ const movieStore = {
 
         FETCH_MOVIE_DETAILS(state, movieDetails) {
             state.movieDetails = movieDetails
+        },
+
+        SEARCH_MOVIE(state, movies) {
+            state.search = movies
         }
     },
 
@@ -25,12 +30,19 @@ const movieStore = {
         async getMovieDetails({ commit }, { movie }) {
             const response = await axios.get(`https://api-moviehub.herokuapp.com/movie/${movie}`)
             commit('FETCH_MOVIE_DETAILS', response.data)
+        },
+
+        async searchMovie({ commit }, { query }) {
+            const response = await axios.get(`https://api-moviehub.herokuapp.com/search?search=${query}`)
+            commit('SEARCH_MOVIE', response.data)
         }
+
     },
 
     getters: {
         allMovies: state => state.movies,
-        movieDetails: state => state.movieDetails
+        movieDetails: state => state.movieDetails,
+        searchResults: state => state.search
     }
 }
 

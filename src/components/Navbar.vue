@@ -12,8 +12,9 @@
     <v-spacer></v-spacer>        
       
       <v-autocomplete
+        :search-input.sync="search"
         dark                 
-        :items="this.$store.getters.allMovies.results"
+        :items="this.$store.getters.searchResults.results"
         item-text="title"                      
         hide-details
         hide-selected               
@@ -29,9 +30,9 @@
             </v-list-item-title>
           </v-list-item>
         </template>     
-        <template v-slot:item="{ item }">         
+        <template v-slot:item="{ item }" :to="{name: 'movie', params: { movie: item.id } }">         
             <v-list-item-avatar size="64" style="border-radius:5px;">
-              <v-img :src="item.poster_path"></v-img>
+              <v-img :src="`https://image.tmdb.org/t/p/original${item.poster_path}`"></v-img>
             </v-list-item-avatar>
             <v-list-item-title v-text="item.title"></v-list-item-title>         
         </template>        
@@ -63,7 +64,26 @@ import FormRegister from './FormRegister.vue'
 export default {
     components: {
         FormRegister
+    },
+
+    data() {
+      return {
+        search: ''
+      }
+    },
+
+    watch: {
+      search: {
+        deep: true,
+        handler (input) {
+          if (!input) {            
+            return ;
+          }
+          this.$store.dispatch('searchMovie', { query: input })
+        }
+      }      
     }
+    
 }
 </script>
 
