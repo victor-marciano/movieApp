@@ -3,8 +3,8 @@
         <v-img :src="`https://image.tmdb.org/t/p/original/${getMovies[0].backdrop_path}`" style="opacity: 0.9;">
           <template v-slot.placeholder>
             <div style="width:350px; padding: 15px;">
-              <h1 style="padding-bottom: 25px; font-size: 48px;">{{getMovies[0].title}}</h1>
-              <p style="font-size:16px;">{{getMovies[0].overview}}</p>            
+              <h1 class="principal-movie-title">{{getMovies[0].title}}</h1>
+              <p class="principal-movie-overview">{{getMovies[0].overview}}</p>            
             </div>
           </template>
         </v-img> 
@@ -111,10 +111,27 @@ export default {
   .card-movie {
     width: 240px;
 
-    @media (max-width: 990px) {
-      width: 175px;
+    @media (max-width: 990px) {  
+      width: 150px;  
     }
   }
 
+  .principal-movie-title {
+    padding-bottom: 25px; 
+    font-size: 48px;
+
+    @media (max-width: 990px) {
+      font-size: 18px;
+    }
+  }
+
+  .principal-movie-overview {
+    font-size: 16px;
+
+    @media (max-width: 990px) {
+      font-size: 14px;
+      width: 170px;
+    }
+  }
   
 </style>
