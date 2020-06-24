@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section class="movie-data" :style="{'background': `url(https://image.tmdb.org/t/p/original${getMovie.backdrop_path})`, 'background-size': 'contain'}"> 
+        <section class="movie-data" :style="{'background': `url(https://image.tmdb.org/t/p/original${getMovie.backdrop_path})`, 'background-size': 'cover'}"> 
             <v-container>    
                 <v-card dark style="opacity: 0.9; padding: 25px;">
                     <template v-slot.default>
@@ -10,19 +10,20 @@
                                 <small style="position: relative; bottom: 10px">{{ getMovie.tagline }}</small>
                                 <p style="font-size: 20px; margin-top: 10px;">{{ getMovie.overview }}</p>
                                 <div>
-                                    <h3>Categorias</h3>
+                                    <h3>Categorias</h3><br>
                                     <v-chip v-for="(genre, index) in getMovie.genres" :key="index" label class="mr-3">
                                         {{ genre.name }}
                                     </v-chip>
                                 </div>
-                                <div>
-                                    <h3>Avaliação média</h3>
-                                    <v-avatar size="48" color="indigo">
+                                <br>
+                                <div class="text-center">
+                                    <h3>Avaliação média</h3><br>
+                                    <v-avatar size="128" color="indigo" style="font-size: 64px;">
                                         {{ getMovie.vote_average }}
-                                    </v-avatar>
+                                    </v-avatar><br><br>
+                                    <small>Em um total de {{ getMovie.vote_count }} votos</small>
                                 </div>
-                                <small>Em um total de {{ getMovie.vote_count }} votos</small>
-
+                                <br>
                                 <div>
                                     <h3>Avalie este filme</h3>
                                     <v-rating
@@ -38,22 +39,26 @@
                                         color="red"
                                         background-color="red lighten-2"
                                     ></v-rating>
-                                    <small>Somente usuários logados podem avaliar!</small>
+                                    
                                 </div>
                             </v-col>
                             <v-col cols="12" md="6">                                
                                 <div class="images-section" v-viewer>
-                                    <h3>Galeria</h3>
-                                    <template v-for="(image, index) in getMovie.images.backdrops">
-                                        <img class="image"
-                                            :src="`https://image.tmdb.org/t/p/original${image.file_path}`" width="150" height="100" :key="index"
+                                    <h3>Galeria</h3><br>
+                                    <template v-for="(image, index) in getMovie.images.backdrops.slice(0, 9)">
+                                        <img style="margin-right: 5px; cursor: pointer;"
+                                            :src="`https://image.tmdb.org/t/p/original${image.file_path}`" width="176" height="125" :key="index"
                                             :data-src="`https://image.tmdb.org/t/p/original${image.file_path}`"
                                         >
                                     </template> 
                                 </div>
-                                <small>Clique para ampliar as imagens</small>                                   
+                                <br>                                  
                                 <div class="video-section">
-                                    <h3>Mídia</h3>
+                                    <h3>Trailer</h3><br>
+                                    <vue-plyr v-for="(video, index) in getMovie.videos.results" :key="index" v-show="video.type === 'Trailer'">
+                                        <div data-plyr-provider="youtube" :data-plyr-embed-id="video.key"></div>
+                                    </vue-plyr> 
+                                    
                                 </div>
                             </v-col>        
                         </v-row>
@@ -124,9 +129,12 @@ export default {
       background-color: black;
   }
 
-  .image-section {
-      .image {
-          cursor: pointer !important;
+  .images-section {
+      img {
+          transition: all .2s ease-in-out;
+          &:hover {
+              transform: scale(1.1);
+          }
       }
-  }
+  }  
 </style>

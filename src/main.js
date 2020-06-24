@@ -6,6 +6,14 @@ import Vuex from 'vuex'
 import movieStore from './modules/movieStore.js'
 import Viewer from 'v-viewer'
 import 'viewerjs/dist/viewer.css'
+import VuePlyr from 'vue-plyr'
+
+Vue.use(VuePlyr, {
+  plyr: {
+    fullscreen: { enabled: true }
+  },
+  emit: ['ended']
+})
 
 Vue.use(Viewer)
 Vue.use(Vuex)
