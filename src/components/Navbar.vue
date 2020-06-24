@@ -21,7 +21,7 @@
         label="Encontre um filme"
         append-icon="mdi-magnify"                     
         solo 
-        class="d-none d-sm-flex"              
+        class="d-none d-sm-flex"                   
       >
         <template v-slot:no-data>
           <v-list-item>
@@ -30,11 +30,13 @@
             </v-list-item-title>
           </v-list-item>
         </template>     
-        <template v-slot:item="{ item }" :to="{name: 'movie', params: { movie: item.id } }">         
-            <v-list-item-avatar size="64" style="border-radius:5px;">
+        <template v-slot:item="{ item }"> 
+            
+            <v-list-item-avatar size="64" style="border-radius:5px;" @click="goToMovie(item)">
               <v-img :src="`https://image.tmdb.org/t/p/original${item.poster_path}`"></v-img>
             </v-list-item-avatar>
-            <v-list-item-title v-text="item.title"></v-list-item-title>         
+            <v-list-item-title v-text="item.title" @click="goToMovie(item)"></v-list-item-title>
+                    
         </template>        
       </v-autocomplete>      
       
@@ -82,7 +84,22 @@ export default {
           this.$store.dispatch('searchMovie', { query: input })
         }
       }      
-    }
+    },
+
+    methods: {
+      goToMovie(movie) {
+        if (!movie) {  
+          return;
+        }  
+
+        // if (this.$router.name === 'movie') {
+        //   this.$router.push({ params: { movie: movie.id }})
+        //   return;
+        // }
+
+        this.$router.push({ name: 'movie', params: { movie: movie.id } })  
+      }
+    },
     
 }
 </script>

@@ -18,7 +18,7 @@
                                 <br>
                                 <div class="text-center">
                                     <h3>Avaliação média</h3><br>
-                                    <v-avatar size="128" color="indigo" style="font-size: 64px;">
+                                    <v-avatar size="100" color="indigo" style="font-size: 50px;">
                                         {{ getMovie.vote_average }}
                                     </v-avatar><br><br>
                                     <small>Em um total de {{ getMovie.vote_count }} votos</small>
@@ -45,7 +45,7 @@
                             <v-col cols="12" md="6">                                
                                 <div class="images-section" v-viewer>
                                     <h3>Galeria</h3><br>
-                                    <template v-for="(image, index) in getMovie.images.backdrops.slice(0, 9)">
+                                    <template v-for="(image, index) in getMovie.images.backdrops.slice(0, 9)" v-show="getMovie.images.backdrops">
                                         <img style="margin-right: 5px; cursor: pointer;"
                                             :src="`https://image.tmdb.org/t/p/original${image.file_path}`" width="176" height="125" :key="index"
                                             :data-src="`https://image.tmdb.org/t/p/original${image.file_path}`"
@@ -112,6 +112,15 @@ export default {
       getMovie(){     
           return this.$store.getters.movieDetails
       }
+  },
+
+  watch: {      
+      '$route.params.movie': {
+        deep: true,
+        handler (movie) {
+          this.$store.dispatch('getMovieDetails', { movie: movie })
+        }
+      } 
   },
   
   
