@@ -3,8 +3,8 @@
         <v-img :src="`https://image.tmdb.org/t/p/original/${getMovies[0].backdrop_path}`" style="opacity: 0.9;">
           <template v-slot.placeholder>
             <div style="width:350px; padding: 15px;">
-              <h1 style="padding-bottom: 25px; font-size: 54px;">{{getMovies[0].title}}</h1>
-              <p style="font-size:20px;">{{getMovies[0].overview}}</p>            
+              <h1 style="padding-bottom: 25px; font-size: 48px;">{{getMovies[0].title}}</h1>
+              <p style="font-size:16px;">{{getMovies[0].overview}}</p>            
             </div>
           </template>
         </v-img> 
@@ -14,7 +14,7 @@
           <v-row>
             <v-col v-for="(movie, index) in getMovies" :key="index">
               <v-hover v-slot:default="{ hover }">       
-                <v-card :to="{ name: `movie`, params: { movie: movie } }" class="mx-auto card-movie" shaped :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                <v-card :to="{ name: `movie`, params: { movie: movie.id } }" class="mx-auto card-movie" shaped :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
                     <v-img class="white--text align-end" height="400px" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"></v-img>                        
                     <v-expand-transition>
                       <div v-if="hover" class="d-flextransition-fast-in-fast-out v-card--reveal"
@@ -37,7 +37,7 @@
       
       <div class="text-center mt-5">
         <v-container>
-          <v-pagination dark :length="pages" prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination>
+          <v-pagination dark v-on:input="updateMovies" v-model="actualPage" :length="pages" prev-icon="mdi-menu-left" next-icon="mdi-menu-right"></v-pagination>
         </v-container>
       </div>
         
@@ -55,14 +55,15 @@ export default {
       default: 'popular'
     },
 
-    page: {
-      type: Number,
-      default: 1
-    }
+    data() {
+      return {
+        actualPage: 1
+      }
+    },
   },
   
   beforeMount() {
-    this.$store.dispatch('getMovies', { page: this.page, sort: this.sort })  
+    this.$store.dispatch('getMovies', { page: this.actualPage, sort: this.sort })  
   },
 
   computed: {    
@@ -76,9 +77,8 @@ export default {
   },
 
   methods: {
-    updateMovies () {
-      console.log(this.sort)
-      this.$store.dispatch('getMovies', { page: this.page, sort: this.sort })
+    updateMovies () {  
+      this.$store.dispatch('getMovies', { page: this.actualPage, sort: this.sort })
     }
   },
 

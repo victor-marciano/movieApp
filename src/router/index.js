@@ -43,10 +43,9 @@ const routes = [
     }
   },
   {
-    path: '/movie/',
+    path: '/movie/:movie',
     name: 'movie',
     component: Movie,
-    props: true,
     meta: {
       title: 'Movie hub | Sua plataforma de filmes'
     }
