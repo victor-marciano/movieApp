@@ -1,10 +1,10 @@
 <template>
     <v-card height="150" dark>
-    <v-footer v-bind="localAttrs" padless dark>
+    <v-footer padless dark>
       <v-card flat tile width="100%">        
         <v-card-title class="d-flex justify-space-around">
           <div>
-            <h5>Data source by</h5>             
+            <p style="font-size: 16px;">Data source by</p>             
             <img src="../assets/tmdb.svg" class="ml-5">           
           </div>
           
