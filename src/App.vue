@@ -15,6 +15,10 @@ export default {
   components: {
     Navbar,    
     Footer
+  },
+
+  beforeCreate() {
+    this.$store.dispatch('checkUser')
   }
 
 };
