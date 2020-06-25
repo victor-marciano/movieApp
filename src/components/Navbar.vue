@@ -46,7 +46,9 @@
         <v-icon size="24">mdi-magnify</v-icon>
       </v-btn>
 
-      <form-register></form-register>     
+
+      <form-register v-if="!this.$store.getters.isLogged"></form-register>
+      <v-btn v-else @click="logout">Logout</v-btn>   
 
       <template v-slot:extension>
         <v-tabs style="position: absolute; left: 30px; top:5px;">
@@ -90,14 +92,13 @@ export default {
       goToMovie(movie) {
         if (!movie) {  
           return;
-        }  
-
-        // if (this.$router.name === 'movie') {
-        //   this.$router.push({ params: { movie: movie.id }})
-        //   return;
-        // }
+        } 
 
         this.$router.push({ name: 'movie', params: { movie: movie.id } })  
+      },
+
+      logout() {
+        this.$store.dispatch('logout')
       }
     },
     

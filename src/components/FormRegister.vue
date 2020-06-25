@@ -45,10 +45,10 @@
                             <v-form @submit.prevent="auth">
                                 <v-row>     
                                     <v-col cols="8">
-                                        <v-text-field label="Email*" required></v-text-field>
+                                        <v-text-field v-model="email" label="Email*" required></v-text-field>
                                     </v-col>
                                     <v-col cols="8">
-                                        <v-text-field label="Senha*" type="password" required></v-text-field>
+                                        <v-text-field v-model="password" label="Senha*" type="password" required></v-text-field>
                                     </v-col>
                                 </v-row>
                                 <small>*Campos obrigatórios</small>
@@ -68,6 +68,9 @@
 </template>
 
 <script>
+
+import firebase from 'firebase'
+
 export default {
     name: 'form-register',
     data() {
@@ -88,21 +91,29 @@ export default {
     },
 
     methods: {
-      register () {    
-          console.log(this.valid)
-        this.loading = true
-        setTimeout(() => {
+      async register () {    
+        try {    
+            this.loading = true  
+            await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+            this.success = true
+        } catch (error) {
+            console.log(error.message)
+        } finally {
             this.loading = false
-        }, 3000)
-        this.success = true
+        }  
       },
       
-      auth () {    
-        this.loading = true
-        setTimeout(() => {
+      async auth () {  
+        try {
+            this.loading = true    
+            await this.$store.dispatch('login', { email: this.email, password: this.password })
+            this.success = true
+        } catch (error) {
+            console.log(error.message)
+        } finally {
             this.loading = false
-        }, 3000)
-        this.success = true
+        }
+        
       },
     },
 
