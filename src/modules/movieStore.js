@@ -1,4 +1,5 @@
 import axios from 'axios'
+const movieApiKey = process.env.VUE_APP_MOVIEDB_API_KEY
 
 const movieStore = {
     state: () => ({
@@ -23,20 +24,19 @@ const movieStore = {
 
     actions: {
         async getMovies({ commit }, { page, sort }) {
-            const response = await axios.get(`https://api-moviehub.herokuapp.com/${sort}?page=${page}`)
+            const response = await axios.get(`https://api.themoviedb.org/3/movie/${sort}?api_key=${movieApiKey}&page=${page}`)
             commit('FETCH_MOVIES', response.data)
         },
 
         async getMovieDetails({ commit }, { movie }) {
-            const response = await axios.get(`https://api-moviehub.herokuapp.com/movie/${movie}`)
+            const response = await axios.get(`https://api.themoviedb.org/3/movie/${movie}?api_key=${movieApiKey}&append_to_response=videos,images,credits,similar}`)
             commit('FETCH_MOVIE_DETAILS', response.data)
         },
 
         async searchMovie({ commit }, { query }) {
-            const response = await axios.get(`https://api-moviehub.herokuapp.com/search?search=${query}`)
+            const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${movieApiKey}&query=${query}`)
             commit('SEARCH_MOVIE', response.data)
         }
-
     },
 
     getters: {

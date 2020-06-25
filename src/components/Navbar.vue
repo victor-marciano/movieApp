@@ -53,8 +53,8 @@
       <template v-slot:extension>
         <v-tabs style="position: absolute; left: 30px; top:5px;">
           <v-tab :to="{ name: `popular`, params: { sort: 'popular' } }">Populares</v-tab>
-          <v-tab :to="{ name: `now`, params: { sort: 'now' } }">Lançamentos</v-tab>
-          <v-tab :to="{ name: `top`, params: { sort: 'top' } }">Melhores</v-tab>
+          <v-tab :to="{ name: `now`, params: { sort: 'now_playing' } }">Lançamentos</v-tab>
+          <v-tab :to="{ name: `top`, params: { sort: 'top_rated' } }">Melhores</v-tab>
           <v-tab :to="{ name: `upcoming`, params: { sort: 'upcoming' } }">Em breve</v-tab>
         </v-tabs>
       </template>
@@ -93,7 +93,7 @@ export default {
         if (!movie) {  
           return;
         } 
-
+        
         this.$router.push({ name: 'movie', params: { movie: movie.id } })  
       },
 

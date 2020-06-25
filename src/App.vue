@@ -18,7 +18,7 @@ export default {
   },
 
   beforeCreate() {
-    this.$store.dispatch('checkUser')
+    this.$store.dispatch('checkUser')  
   }
 
 };
