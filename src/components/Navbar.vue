@@ -1,4 +1,5 @@
 <template>  
+  <div>
   <v-app-bar dark src="../assets/cinema.jpg" fixed
       >
       <template v-slot:img="{ props }">
@@ -48,7 +49,9 @@
 
 
       <form-register v-if="!this.$store.getters.isLogged"></form-register>
-      <v-btn v-else @click="logout">Logout</v-btn>   
+      <v-btn v-else dark icon @click.stop="drawer = !drawer">
+          <v-icon>mdi-account-arrow-left</v-icon>
+      </v-btn>   
 
       <template v-slot:extension>
         <v-tabs style="position: absolute; left: 30px; top:5px;">
@@ -58,8 +61,39 @@
           <v-tab :to="{ name: `upcoming`, params: { sort: 'upcoming' } }">Em breve</v-tab>
         </v-tabs>
       </template>
-    </v-app-bar>     
-  
+    </v-app-bar> 
+     
+     <v-navigation-drawer v-model="drawer" app dark temporary right>
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>{{ user.email }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+      <v-list dense>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon>mdi-movie-edit-outline</v-icon>            
+          </v-list-item-icon>     
+          <v-list-item-content>
+            <v-list-item-title>Watchlist</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+       
+        <v-list-item link @click="logout">
+          <v-list-item-icon>
+            <v-icon>mdi-logout</v-icon>
+          </v-list-item-icon>     
+
+          <v-list-item-content>
+            <v-list-item-title>Logout</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-navigation-drawer>    
+  </div>
 </template>
 
 <script>
@@ -72,7 +106,8 @@ export default {
 
     data() {
       return {
-        search: ''
+        search: '',
+        drawer: false
       }
     },
 
@@ -93,12 +128,19 @@ export default {
         if (!movie) {  
           return;
         } 
-        
+
         this.$router.push({ name: 'movie', params: { movie: movie.id } })  
       },
 
       logout() {
-        this.$store.dispatch('logout')
+        this.drawer = !this.drawer  
+        this.$store.dispatch('logout')  
+      }
+    },
+
+    computed: {
+      user() {
+        return this.$store.getters.userLogged || false
       }
     },
     

@@ -50,7 +50,8 @@ const userStore = {
     },
 
     getters: {
-        isLogged: state => state.logged
+        isLogged: state => state.logged,
+        userLogged: state => state.user
     }
 }
 
