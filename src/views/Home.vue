@@ -18,7 +18,7 @@
                     <v-img class="white--text align-end" height="400px" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"></v-img>                        
                     <v-expand-transition>
                       <div v-if="hover" class="d-flextransition-fast-in-fast-out v-card--reveal"
-                        style="height: 70%;"
+                        style="height: 75%;"
                       >
                         <div class="flex-row mt-3 float-left" style="width: 150px;">
                           <h5>{{ movie.title }}</h5>
@@ -106,6 +106,7 @@ export default {
     color: white;
     background-color: black;
     border-bottom-right-radius: 0 !important;
+    padding: 15px;
   }
 
   .card-movie {
