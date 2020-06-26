@@ -24,7 +24,7 @@
                                     <small>Em um total de {{ getMovie.vote_count }} votos</small>
                                 </div>
                                 <br>
-                                <div>
+                                <div class="ratingSection">
                                     <h3>Avalie este filme</h3>
                                     <v-rating
                                         v-model="rating"
@@ -37,10 +37,15 @@
                                         :size="46"
                                         dense
                                         color="red"
-                                        background-color="red lighten-2"
+                                        background-color="red lighten-2"                                                
+                                        :readonly="!logged"                                        
                                     ></v-rating>
-                                    
+                                    <br>
+                                    <v-btn :disabled="!logged" @click="rateMovie">Avaliar</v-btn>
                                 </div>
+                                <v-tooltip left :disabled="logged" activator=".ratingSection">                                  
+                                    <span>Faça o login para avaliar o filme</span>
+                                </v-tooltip>
                             </v-col>
                             <v-col cols="12" md="6">                                
                                 <div class="images-section" v-viewer>
@@ -111,6 +116,10 @@ export default {
   computed: {
       getMovie(){     
           return this.$store.getters.movieDetails
+      },
+
+      logged() {
+          return this.$store.getters.isLogged
       }
   },
 
@@ -123,6 +132,11 @@ export default {
       } 
   },
   
+  methods: {
+      rateMovie() {
+          console.log(this.rating)
+      }
+  }
   
 }
 </script>
