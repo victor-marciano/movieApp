@@ -3,7 +3,8 @@ import firebase from 'firebase'
 const userStore = {
     state: () => ({
         logged: false,
-        user: {}
+        user: {},
+        loading: false
     }),
 
     mutations: {
@@ -31,7 +32,6 @@ const userStore = {
 
         logout({ commit }) {
             firebase.auth().signOut().then(() => {
-                console.log('logout')
                 commit('LOGOUT_USER')
             }).catch(error => {
                 console.log(error.message)
@@ -42,11 +42,10 @@ const userStore = {
             firebase.auth().onAuthStateChanged(user => {
                 if (user) {
                     commit('AUTH_USER', user)
-                } else {
-                    console.log('Nao esta logado')
                 }
-            });
+            })
         }
+
     },
 
     getters: {

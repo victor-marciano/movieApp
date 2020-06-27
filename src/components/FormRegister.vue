@@ -34,7 +34,7 @@
                                 <v-btn dark type="submit" :disabled="!isValid">
                                     <v-progress-circular v-show="isLoading" :size="15" indeterminate></v-progress-circular>
                                     Enviar
-                                </v-btn>              
+                                </v-btn>             
                             </v-form>                                   
                         </v-container>
                     </v-card>              
@@ -70,6 +70,7 @@
 <script>
 
 import firebase from 'firebase'
+import { db } from '../config/firebase'
 
 export default {
     name: 'form-register',
@@ -94,15 +95,23 @@ export default {
       async register () {    
         try {    
             this.loading = true  
-            await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+            
+            const result = await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+            
+            db.ref('users/' + result.user.uid)
+            .set({ email: result.user.email })
+            .then(() => {
+                console.log('user updated!')
+            })
+
             this.success = true
         } catch (error) {
             console.log(error.message)
         } finally {
             this.loading = false
         }  
-      },
-      
+      }, 
+
       async auth () {  
         try {
             this.loading = true    
