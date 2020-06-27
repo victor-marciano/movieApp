@@ -7,6 +7,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/',
+    redirect: '/popular'
+  },
+  {
     path: '/popular',
     name: 'popular',
     component: () => import('../views/Home.vue'),
