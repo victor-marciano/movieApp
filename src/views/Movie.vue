@@ -98,6 +98,10 @@
 
 <script>
 
+import axios from 'axios'
+import { db } from '../config/firebase'
+import firebase from 'firebase'
+
 export default {
   name: 'Movie',  
 
@@ -133,8 +137,18 @@ export default {
   },
   
   methods: {
-      rateMovie() {
-          console.log(this.rating)
+      async rateMovie() {
+          try {  
+            const snapshot = await db.ref('users/' + firebase.auth().currentUser.uid).once('value')
+            const user = snapshot.val()
+                        
+            await axios.post(`https://api.themoviedb.org/3/movie/${this.movie}/rating?api_key=${process.env.VUE_APP_MOVIEDB_API_KEY}`, {
+                value: this.rating,
+                guest_session_id: user.guest_token
+            })
+          } catch (error) {
+              console.log(error.response)
+          }
       }
   }
   

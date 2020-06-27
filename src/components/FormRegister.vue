@@ -71,6 +71,7 @@
 
 import firebase from 'firebase'
 import { db } from '../config/firebase'
+import axios from 'axios'
 
 export default {
     name: 'form-register',
@@ -97,11 +98,10 @@ export default {
             this.loading = true  
             
             const result = await firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-            
-            db.ref('users/' + result.user.uid)
-            .set({ email: result.user.email })
-            .then(() => {
-                console.log('user updated!')
+            const response = await axios.get(`https://api.themoviedb.org/3/authentication/guest_session/new?api_key=${process.env.VUE_APP_MOVIEDB_API_KEY}`)            
+            await db.ref('users/' + result.user.uid).set({
+                email: result.user.email,
+                guest_token: response.data.guest_session_id
             })
 
             this.success = true

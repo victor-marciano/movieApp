@@ -22,7 +22,7 @@ const userStore = {
         async login({ commit }, { email, password }) {
             await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
             firebase.auth().signInWithEmailAndPassword(email, password)
-                .then((result) => {
+                .then(result => {
                     commit('AUTH_USER', result.user)
                 })
                 .catch(error => {
