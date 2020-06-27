@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Movie from '../views/Movie.vue'
+// import Home from '../views/Home.vue'
+// import Movie from '../views/Movie.vue'
 
 Vue.use(VueRouter)
 
@@ -9,7 +9,7 @@ const routes = [
   {
     path: '/popular',
     name: 'popular',
-    component: Home,
+    component: () => import('../views/Home.vue'),
     props: true,
     meta: {
       title: 'Movie hub | Sua plataforma de filmes'
@@ -18,7 +18,7 @@ const routes = [
   {
     path: '/top',
     name: 'top',
-    component: Home,
+    component: () => import('../views/Home.vue'),
     props: true,
     meta: {
       title: 'Movie hub | Sua plataforma de filmes'
@@ -27,7 +27,7 @@ const routes = [
   {
     path: '/now',
     name: 'now',
-    component: Home,
+    component: () => import('../views/Home.vue'),
     props: true,
     meta: {
       title: 'Movie hub | Sua plataforma de filmes'
@@ -36,7 +36,7 @@ const routes = [
   {
     path: '/upcoming',
     name: 'upcoming',
-    component: Home,
+    component: () => import('../views/Home.vue'),
     props: true,
     meta: {
       title: 'Movie hub | Sua plataforma de filmes'
@@ -45,7 +45,7 @@ const routes = [
   {
     path: '/movie/:movie',
     name: 'movie',
-    component: Movie,
+    component: () => import('../views/Movie.vue'),
     meta: {
       title: 'Movie hub | Sua plataforma de filmes'
     }

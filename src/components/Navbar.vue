@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import FormRegister from './FormRegister.vue'
+const FormRegister = () => import('./FormRegister.vue')
 
 export default {
     components: {
