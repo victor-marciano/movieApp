@@ -9,16 +9,14 @@
           </template>
         </v-img> 
         <v-container fluid>
-
-          <h2>Todos os filmes</h2>
           <v-row>
-            <v-col v-for="(movie, index) in getMovies" :key="index">
+            <v-col cols="6" md="3" v-for="(movie, index) in getMovies" :key="index">
               <v-hover v-slot:default="{ hover }">       
-                <v-card :to="{ name: `movie`, params: { movie: movie.id } }" class="mx-auto card-movie" shaped :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
-                    <v-img class="white--text align-end" height="400px" :src="`https://image.tmdb.org/t/p/w500${movie.poster_path}`"></v-img>                        
+                <v-card :to="{ name: `movie`, params: { movie: movie.id } }" shaped :elevation="hover ? 12 : 2" :class="{ 'on-hover': hover }">
+                    <v-img class="white--text align-end" :src="`https://image.tmdb.org/t/p/original${movie.poster_path}`"></v-img>                        
                     <v-expand-transition>
                       <div v-if="hover" class="d-flextransition-fast-in-fast-out v-card--reveal"
-                        style="height: 75%;"
+                        style="height: 70%;"
                       >
                         <div class="flex-row mt-3 float-left" style="width: 150px;">
                           <h5>{{ movie.title }}</h5>
@@ -134,5 +132,13 @@ export default {
       width: 170px;
     }
   }
+
+  @media (min-width: 1264px) and (max-width: 1903px) {
+    .flex.lg5-custom {
+        width: 20%;
+        max-width: 20%;
+        flex-basis: 20%;
+    }
+}
   
 </style>

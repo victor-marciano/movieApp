@@ -91,8 +91,7 @@
                                     <h3>Trailer</h3><br>
                                     <vue-plyr v-for="(video, index) in getMovie.videos.results.slice(0,1)" :key="index" v-show="video.type === 'Trailer'">
                                         <div data-plyr-provider="youtube" :data-plyr-embed-id="video.key"></div>
-                                    </vue-plyr> 
-                                    
+                                    </vue-plyr>                                    
                                 </div>
                             </v-col>        
                         </v-row>
