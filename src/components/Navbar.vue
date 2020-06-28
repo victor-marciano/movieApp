@@ -63,7 +63,7 @@
       </template>
     </v-app-bar> 
      
-     <v-navigation-drawer v-model="drawer" app dark temporary right>
+     <v-navigation-drawer v-model="drawer" app dark temporary right v-show="user">
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>{{ user.email }}</v-list-item-title>

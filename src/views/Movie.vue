@@ -1,14 +1,14 @@
 <template>
     <div>
-        <section class="movie-data" :style="{'background': `url(https://image.tmdb.org/t/p/original${getMovie.backdrop_path})`, 'background-size': 'contain'}"> 
+        <section class="movie-data" :style="{'background': `url(https://image.tmdb.org/t/p/original${getMovie.backdrop_path})`, 'background-size': 'cover'}"> 
             <v-container>    
                 <v-card dark style="opacity: 0.9; padding: 25px;">
                     <template v-slot.default>
                         <v-row>
                             <v-col cols="12" md="6">
-                                <h1 style="font-size: 48px;">{{ getMovie.title }}</h1>
+                                <h1 style="font-size: 38px;">{{ getMovie.title }}</h1>
                                 <small style="position: relative; bottom: 10px">{{ getMovie.tagline }}</small>
-                                <p style="font-size: 20px; margin-top: 10px;">{{ getMovie.overview }}</p>
+                                <p style="font-size: 18px; margin-top: 10px;">{{ getMovie.overview }}</p>
                                 <br>
                                 <div class="d-flex justify-space-around">
                                     <v-img v-for="(company, index) in getMovie.production_companies.slice(0,5)" :key="index"
@@ -36,18 +36,11 @@
                                     </v-avatar>
                                         {{ getMovie.revenue.toLocaleString('us', {style: 'currency', currency: 'USD'}) }}
                                     </v-chip>
-                                </div>
-                                <br>
-                                <div>
-                                    <h3>Categorias</h3><br>
-                                    <v-chip v-for="(genre, index) in getMovie.genres" :key="index" label class="mr-3">
-                                        {{ genre.name }}
-                                    </v-chip>
-                                </div>                                
+                                </div>                                                               
                                 <br>
                                 <div class="text-center">
                                     <h3>Avaliação média</h3><br>
-                                    <v-avatar size="100" color="indigo" style="font-size: 50px;">
+                                    <v-avatar size="80" color="indigo" style="font-size: 42px;">
                                         {{ getMovie.vote_average }}
                                     </v-avatar><br><br>
                                     <small>Em um total de {{ getMovie.vote_count }} votos</small>
@@ -63,7 +56,7 @@
                                         half-icon="mdi-heart-half-full"
                                         half-increments
                                         hover                                        
-                                        :size="46"
+                                        :size="isMobile ? 22 : 46"
                                         dense
                                         color="red"
                                         background-color="red lighten-2"                                                
@@ -76,7 +69,14 @@
                                     <span>Faça o login para avaliar o filme</span>
                                 </v-tooltip>
                             </v-col>
-                            <v-col cols="12" md="6">                                
+                            <v-col cols="12" md="6">       
+                                <div>
+                                    <h3>Categorias</h3><br>
+                                    <v-chip v-for="(genre, index) in getMovie.genres" :key="index" label class="mr-3 mb-2">
+                                        {{ genre.name }}
+                                    </v-chip>
+                                </div>                          
+                                <br>
                                 <div class="images-section" v-viewer>
                                     <h3>Galeria</h3><br>
                                     <template v-for="(image, index) in getMovie.images.backdrops.slice(0, 9)" v-show="getMovie.images.backdrops">
@@ -101,7 +101,7 @@
             
             </v-container>    
         </section>
-        <section class="recommendations white--text" style="background-color: #121212;">
+        <section class="recommendations white--text" style="background-color: #121212;" v-show="getMovie.recommendations.results">
             <v-container>
                 <h1>Quem gostou deste filme também gostou desses:</h1>
                 <v-row>
@@ -163,7 +163,6 @@ export default {
 
   computed: {
       getMovie(){
-          console.log(this.$store.getters.movieDetails)
           return this.$store.getters.movieDetails
       },
 
@@ -173,6 +172,10 @@ export default {
 
       noImage() {
           return require('@/assets/no-image-icon.png')
+      },
+
+      isMobile() {
+          return screen.width < 990 ? true : false
       }
   },
 
