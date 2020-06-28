@@ -101,6 +101,21 @@
             
             </v-container>    
         </section>
+        <section class="recommendations white--text" style="background-color: #121212;">
+            <v-container>
+                <h1>Quem gostou deste filme também gostou desses:</h1>
+                <v-row>
+                    <v-col cols="6" md="2" v-for="(movie, index) in getMovie.recommendations.results.slice(0, 6)" :key="index">
+                        <v-card dark shaped :to="{ name: `movie`, params: { movie: movie.id } }">
+                            <v-img
+                                class="white--text align-end"                                
+                                :src="`https://image.tmdb.org/t/p/original${movie.poster_path}`"
+                            ></v-img>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </section>
         <section class="actors">
             <v-container>
                 <h1>Elenco</h1>
@@ -148,6 +163,7 @@ export default {
 
   computed: {
       getMovie(){
+          console.log(this.$store.getters.movieDetails)
           return this.$store.getters.movieDetails
       },
 
