@@ -29,7 +29,7 @@ const movieStore = {
         },
 
         async getMovieDetails({ commit }, { movie }) {
-            const response = await axios.get(`https://api.themoviedb.org/3/movie/${movie}?api_key=${movieApiKey}&append_to_response=videos,images,credits,similar}`)
+            const response = await axios.get(`https://api.themoviedb.org/3/movie/${movie}?api_key=${movieApiKey}&append_to_response=videos,images,credits,recommendation}`)
             commit('FETCH_MOVIE_DETAILS', response.data)
         },
 

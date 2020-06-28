@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section class="movie-data" :style="{'background': `url(https://image.tmdb.org/t/p/original${getMovie.backdrop_path})`, 'background-size': 'cover'}"> 
+        <section class="movie-data" :style="{'background': `url(https://image.tmdb.org/t/p/original${getMovie.backdrop_path})`, 'background-size': 'contain'}"> 
             <v-container>    
                 <v-card dark style="opacity: 0.9; padding: 25px;">
                     <template v-slot.default>
@@ -9,12 +9,41 @@
                                 <h1 style="font-size: 48px;">{{ getMovie.title }}</h1>
                                 <small style="position: relative; bottom: 10px">{{ getMovie.tagline }}</small>
                                 <p style="font-size: 20px; margin-top: 10px;">{{ getMovie.overview }}</p>
+                                <br>
+                                <div class="d-flex justify-space-around">
+                                    <v-img v-for="(company, index) in getMovie.production_companies.slice(0,5)" :key="index"
+                                         contain
+                                         height="40" width="50"
+                                         :src="`https://image.tmdb.org/t/p/original${company.logo_path}`"                                         
+                                    ></v-img>
+                                </div><br><br>
+                                <div>                                    
+                                    <v-chip label class="mr-3">
+                                    <v-avatar left>
+                                        <v-icon>mdi-calendar-range</v-icon>
+                                    </v-avatar>
+                                        {{ new Date(getMovie.release_date).toLocaleDateString() }}
+                                    </v-chip>
+                                    <v-chip label class="mr-3">
+                                    <v-avatar left>
+                                        <v-icon>mdi-update</v-icon>
+                                    </v-avatar>
+                                        {{ getMovie.runtime }}min
+                                    </v-chip>
+                                    <v-chip label class="mr-3">
+                                    <v-avatar left>
+                                        <v-icon>mdi-cash-usd-outline</v-icon>
+                                    </v-avatar>
+                                        {{ getMovie.revenue.toLocaleString('us', {style: 'currency', currency: 'USD'}) }}
+                                    </v-chip>
+                                </div>
+                                <br>
                                 <div>
                                     <h3>Categorias</h3><br>
                                     <v-chip v-for="(genre, index) in getMovie.genres" :key="index" label class="mr-3">
                                         {{ genre.name }}
                                     </v-chip>
-                                </div>
+                                </div>                                
                                 <br>
                                 <div class="text-center">
                                     <h3>Avaliação média</h3><br>
@@ -60,7 +89,7 @@
                                 <br>                                  
                                 <div class="video-section">
                                     <h3>Trailer</h3><br>
-                                    <vue-plyr v-for="(video, index) in getMovie.videos.results" :key="index" v-show="video.type === 'Trailer'">
+                                    <vue-plyr v-for="(video, index) in getMovie.videos.results.slice(0,1)" :key="index" v-show="video.type === 'Trailer'">
                                         <div data-plyr-provider="youtube" :data-plyr-embed-id="video.key"></div>
                                     </vue-plyr> 
                                     
@@ -80,7 +109,7 @@
                         <v-card dark shaped>
                             <v-img
                                 class="white--text align-end"                                
-                                :src="`https://image.tmdb.org/t/p/original${actor.profile_path}`"
+                                :src="actor.profile_path ? `https://image.tmdb.org/t/p/original${actor.profile_path}` : noImage"
                             ></v-img>
 
                             <v-card-subtitle class="pb-0">{{ actor.name }}</v-card-subtitle>
@@ -118,12 +147,16 @@ export default {
   },
 
   computed: {
-      getMovie(){     
+      getMovie(){
           return this.$store.getters.movieDetails
       },
 
       logged() {
           return this.$store.getters.isLogged
+      },
+
+      noImage() {
+          return require('@/assets/no-image-icon.png')
       }
   },
 

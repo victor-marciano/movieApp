@@ -34,7 +34,7 @@
         <template v-slot:item="{ item }"> 
             
             <v-list-item-avatar size="64" style="border-radius:5px;" @click="goToMovie(item)">
-              <v-img :src="`https://image.tmdb.org/t/p/original${item.poster_path}`"></v-img>
+              <v-img :src="item.poster_path ? `https://image.tmdb.org/t/p/original${item.poster_path}` : noImage"></v-img>
             </v-list-item-avatar>
             <v-list-item-title v-text="item.title" @click="goToMovie(item)"></v-list-item-title>
                     
@@ -141,6 +141,10 @@ export default {
     computed: {
       user() {
         return this.$store.getters.userLogged || false
+      },
+
+      noImage() {
+        return require('@/assets/no-image-icon.png')
       }
     },
     
