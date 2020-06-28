@@ -1,7 +1,7 @@
 <template>
     <div>        
         <v-row justify="center">
-            <v-dialog v-model="dialog" dark max-width="500px">
+            <v-dialog dark max-width="500px">
             <template v-slot:activator="{ on, attrs }">
                 <v-btn dark v-bind="attrs" v-on="on" class="d-none d-sm-flex">Cadastro/Login</v-btn>                
                 <v-btn dark v-bind="attrs" v-on="on" class="d-flex d-sm-none" icon>

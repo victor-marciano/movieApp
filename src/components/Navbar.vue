@@ -1,9 +1,8 @@
 <template>  
   <div>
-  <v-app-bar dark src="../assets/cinema.jpg" fixed
-      >
+  <v-app-bar dark src="../assets/cinema4.jpg" fixed>
       <template v-slot:img="{ props }">
-        <v-img v-bind="props" gradient="to top right, rgba(0,0,0,.7), rgba(10,10,10,.9)"></v-img>
+        <v-img v-bind="props" gradient="to top right, rgba(0,0,0,.1), rgba(10,10,10,.9)"></v-img>
       </template>
 
       <v-toolbar-title>
